@@ -81,8 +81,11 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression.Streams
 
 			baseOutputStream_ = baseOutputStream;
 			buffer_ = new byte[bufferSize];
-			deflater_ = deflater ?? throw new ArgumentNullException(nameof(deflater));
-		}
+            if(deflater == null)
+			    throw new ArgumentNullException(nameof(deflater));
+            deflater_ = deflater;
+
+        }
 
 		#endregion Constructors
 

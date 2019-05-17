@@ -1,3 +1,4 @@
+#define FOR_UNITY // 2019.05.17 JACK modified for Unity3D
 using System;
 using System.Security.Cryptography;
 
@@ -8,7 +9,7 @@ namespace ICSharpCode.SharpZipLib.Encryption
 	/// </summary>
 	internal class ZipAESTransform : ICryptoTransform
 	{
-#if NET45
+#if NET45 || FOR_UNITY // 2019.05.17 JACK modified for Unity3D
 		class IncrementalHash : HMACSHA1
 		{
 			bool _finalised;

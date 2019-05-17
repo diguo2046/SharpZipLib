@@ -398,9 +398,11 @@ namespace ICSharpCode.SharpZipLib.Zip
 		/// </exception>
 		public ZipFile(string name)
 		{
-			name_ = name ?? throw new ArgumentNullException(nameof(name));
+            if(name == null)
+			    throw new ArgumentNullException(nameof(name));
+            name_ = name;
 
-			baseStream_ = File.Open(name, FileMode.Open, FileAccess.Read, FileShare.Read);
+            baseStream_ = File.Open(name, FileMode.Open, FileAccess.Read, FileShare.Read);
 			isStreamOwner = true;
 
 			try
@@ -1466,12 +1468,17 @@ namespace ICSharpCode.SharpZipLib.Zip
 				throw new ZipException("Cannot update embedded/SFX archives");
 			}
 
-			archiveStorage_ = archiveStorage ?? throw new ArgumentNullException(nameof(archiveStorage));
-			updateDataSource_ = dataSource ?? throw new ArgumentNullException(nameof(dataSource));
+            if(archiveStorage == null)
+			    throw new ArgumentNullException(nameof(archiveStorage));
+            archiveStorage_ = archiveStorage;
 
-			// NOTE: the baseStream_ may not currently support writing or seeking.
+            if(dataSource == null)
+                throw new ArgumentNullException(nameof(dataSource));
+            updateDataSource_ = dataSource;
 
-			updateIndex_ = new Dictionary<string, int>();
+            // NOTE: the baseStream_ may not currently support writing or seeking.
+
+            updateIndex_ = new Dictionary<string, int>();
 
 			updates_ = new List<ZipUpdate>(entries_.Length);
 			foreach (ZipEntry entry in entries_)
@@ -2744,8 +2751,10 @@ namespace ICSharpCode.SharpZipLib.Zip
 		private void Reopen(Stream source)
 		{
 			isNewArchive_ = false;
-			baseStream_ = source ?? throw new ZipException("Failed to reopen archive - no source");
-			ReadEntries();
+            if(source == null)
+                throw new ZipException("Failed to reopen archive - no source");
+            baseStream_ = source;
+            ReadEntries();
 		}
 
 		private void Reopen()

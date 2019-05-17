@@ -511,7 +511,8 @@ namespace ICSharpCode.SharpZipLib.Tar
 							numToRead -= numRead;
 						}
 
-						if (xhr.Headers.TryGetValue("path", out string name))
+                        string name;
+						if (xhr.Headers.TryGetValue("path", out name))
 						{
 							longName = new StringBuilder(name);
 						}

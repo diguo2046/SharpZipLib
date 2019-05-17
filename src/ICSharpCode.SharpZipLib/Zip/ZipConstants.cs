@@ -459,13 +459,14 @@ namespace ICSharpCode.SharpZipLib.Zip
 		/// </summary>
 		[Obsolete("Use ZipStrings instead")]
 		public static int DefaultCodePage
-		{
-			get => ZipStrings.CodePage;
-			set => ZipStrings.CodePage = value;
-		}
+        {
+            get { return ZipStrings.CodePage; }
 
-		/// <summary> Depracated wrapper for <see cref="ZipStrings.ConvertToString(byte[], int)"/></summary>
-		[Obsolete("Use ZipStrings.ConvertToString instead")]
+            set { ZipStrings.CodePage = value; }
+        }
+
+        /// <summary> Depracated wrapper for <see cref="ZipStrings.ConvertToString(byte[], int)"/></summary>
+        [Obsolete("Use ZipStrings.ConvertToString instead")]
 		public static string ConvertToString(byte[] data, int count)
 			=> ZipStrings.ConvertToString(data, count);
 

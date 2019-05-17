@@ -119,23 +119,37 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression
 			yield return true;
 		}
 
-		/// <summary>
-		/// Get literal/length huffman tree, must not be used before <see cref="AttemptRead"/> has returned true
-		/// </summary>
-		/// <exception cref="StreamDecodingException">If hader has not been successfully read by the state machine</exception>
-		public InflaterHuffmanTree LiteralLengthTree
-			=> litLenTree ?? throw new StreamDecodingException("Header properties were accessed before header had been successfully read");
+        /// <summary>
+        /// Get literal/length huffman tree, must not be used before <see cref="AttemptRead"/> has returned true
+        /// </summary>
+        /// <exception cref="StreamDecodingException">If hader has not been successfully read by the state machine</exception>
+        public InflaterHuffmanTree LiteralLengthTree
+        {
+            get
+            {
+                if(litLenTree == null)
+                    throw new StreamDecodingException("Header properties were accessed before header had been successfully read");
+                return litLenTree;
+            }
+        }
 
-		/// <summary>
-		/// Get distance huffman tree, must not be used before <see cref="AttemptRead"/> has returned true
-		/// </summary>
-		/// <exception cref="StreamDecodingException">If hader has not been successfully read by the state machine</exception>
-		public InflaterHuffmanTree DistanceTree
-			=> distTree ?? throw new StreamDecodingException("Header properties were accessed before header had been successfully read");
+        /// <summary>
+        /// Get distance huffman tree, must not be used before <see cref="AttemptRead"/> has returned true
+        /// </summary>
+        /// <exception cref="StreamDecodingException">If hader has not been successfully read by the state machine</exception>
+        public InflaterHuffmanTree DistanceTree
+        {
+            get
+            {
+                if(distTree == null)
+                    throw new StreamDecodingException("Header properties were accessed before header had been successfully read");
+                return distTree;
+            }
+        }
 
-		#region Instance Fields
+        #region Instance Fields
 
-		private readonly StreamManipulator input;
+        private readonly StreamManipulator input;
 		private readonly IEnumerator<bool> state;
 		private readonly IEnumerable<bool> stateMachine;
 

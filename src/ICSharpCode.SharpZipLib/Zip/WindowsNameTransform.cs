@@ -42,8 +42,10 @@ namespace ICSharpCode.SharpZipLib.Zip
 		/// <param name="allowParentTraversal">Allow parent directory traversal in file paths (e.g. ../file)</param>
 		public WindowsNameTransform(string baseDirectory, bool allowParentTraversal = false)
 		{
-			BaseDirectory = baseDirectory ?? throw new ArgumentNullException(nameof(baseDirectory), "Directory name is invalid");
-			AllowParentTraversal = allowParentTraversal;
+            if(baseDirectory == null)
+			    throw new ArgumentNullException(nameof(baseDirectory), "Directory name is invalid");
+            BaseDirectory = baseDirectory;
+            AllowParentTraversal = allowParentTraversal;
 		}
 
 		/// <summary>
@@ -75,15 +77,16 @@ namespace ICSharpCode.SharpZipLib.Zip
 		/// Allow parent directory traversal in file paths (e.g. ../file)
 		/// </summary>
 		public bool AllowParentTraversal
-		{
-			get => _allowParentTraversal;
-			set => _allowParentTraversal = value;
-		}
+        {
+            get { return _allowParentTraversal; }
 
-		/// <summary>
-		/// Gets or sets a value indicating wether paths on incoming values should be removed.
-		/// </summary>
-		public bool TrimIncomingPaths
+            set { _allowParentTraversal = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating wether paths on incoming values should be removed.
+        /// </summary>
+        public bool TrimIncomingPaths
 		{
 			get { return _trimIncomingPaths; }
 			set { _trimIncomingPaths = value; }
